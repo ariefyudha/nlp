@@ -126,40 +126,7 @@ grammar_cnf = chomsky_normal_form(grammar)
 for rule in grammar_cnf:
     print rule
 
-print grammar_cnf == get_grammar('''\
-S -> NP VP | AUX_NP VP | Verb NP | VERB_NP PP | Verb PP | VP PP
-S -> book | include | prefer
-AUX_NP -> Aux NP
-NP -> Det Nominal
-NP -> TWA | Houston | I | she | me
-Nominal -> Nominal Noun | Nominal PP
-Nominal -> book | flight | meal | money
-VP -> Verb NP | VERB_NP PP | Verb PP | VP PP
-VP -> book | include | prefer
-VERB_NP -> Verb NP
-PP -> Preposition NP
-Det -> this | that | a
-Noun -> book | flight | meal | money
-Verb -> book | include | prefer
-Aux -> does
-Preposition -> from | to | on | near | through''')
-
 words = 'book a flight through Houston'.split()
 table = cky(grammar_cnf, words)
 for key, value in table.iteritems():
     print key, value
-print table[0, 1] == set('S VP Verb Nominal Noun'.split())
-print table[0, 2] == set()
-print table[0, 3] == set('S VP VERB_NP'.split())
-print table[0, 4] == set()
-print table[0, 5] == set('S VP VERB_NP'.split())
-print table[1, 2] == set('Det'.split())
-print table[1, 3] == set('NP'.split())
-print table[1, 4] == set()
-print table[1, 5] == set('NP'.split())
-print table[2, 3] == set('Nominal Noun'.split())
-print table[2, 4] == set()
-print table[2, 5] == set('Nominal'.split())
-print table[3, 4] == set('Preposition'.split())
-print table[3, 5] == set('PP'.split())
-print table[4, 5] == set('NP'.split())
