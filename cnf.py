@@ -79,7 +79,7 @@ def multi_symbol_rules(grammar):
         g = (rule for rule in grammar if len(rule.tail) >= 3)
         yield g.next()
 
-#cky algorithm
+# cky algorithm
 def cky(grammar, words):
     table = collections.defaultdict(set)
     for col, word in enumerate(words):
